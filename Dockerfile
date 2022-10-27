@@ -50,7 +50,8 @@ RUN make -j4
 RUN make install DESTDIR=/dest
 
 FROM debian:11-slim
-RUN apt-get update && apt-get install -y bash libbz2-1.0 libcurl4 liblzma5 && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y bash libbz2-1.0 libcurl4 liblzma5 python2 && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN ln -s /usr/bin/python2 /usr/bin/python
 COPY --from=buildenv-bcftools /dest /
 COPY --from=buildenv-samtools /dest /
 COPY --from=buildenv-htslib /dest /
